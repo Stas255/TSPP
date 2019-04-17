@@ -85,17 +85,17 @@ namespace Aviadispetcher
 
         private void EditDataMenuItem_Click(object sender, RoutedEventArgs e)
         {
+            
             numFlightGroupBox.Visibility = Visibility.Visible;
-
-            this.Width = numFlightGroupBox.Margin.Left + numFlightGroupBox.RenderSize.Width + 20;
-            this.Height = FlightListDG.Margin.Top + FlightListDG.RenderSize.Height + 50 +
-                          numFlightGroupBox.Margin.Top + numFlightGroupBox.RenderSize.Height + 20;
+            this.Height = FlightListDG.Margin.Top + FlightListDG.RenderSize.Height + 50 + 
+                           numFlightGroupBox.RenderSize.Height + 20;
 
             flightAdd = false;
         }
 
         private void FlightListDG_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
+            flightNum = FlightListDG.SelectedIndex;
             Flight editerFlight = FlightListDG.SelectedItem as Flight;
             try
             {
@@ -215,10 +215,8 @@ namespace Aviadispetcher
         {
             numFlightGroupBox.Visibility = Visibility.Visible;
 
-            this.Width = numFlightGroupBox.Margin.Left + numFlightGroupBox.RenderSize.Width + 20;
             this.Height = FlightListDG.Margin.Top + FlightListDG.RenderSize.Height + 50 +
-                          numFlightGroupBox.Margin.Top + numFlightGroupBox.RenderSize.Height + 20;
-
+                          numFlightGroupBox.RenderSize.Height + 20;
             flightAdd = true;
 
             flightNum = fList.Count;
@@ -252,8 +250,7 @@ namespace Aviadispetcher
         {
             groupBox1.Visibility = Visibility.Visible;
 
-            this.Width = 1200000;
-            this.Height = 290;
+            this.Width = numFlightGroupBox.Margin.Left + numFlightGroupBox.RenderSize.Width + groupBox1.Width + 30;
             cityList.Items.Clear();
             FillCityList();
         }
