@@ -1,0 +1,41 @@
+C:\Users\it-71\Desktop\Aviadispetcher\Aviadispetche\bin\Debug\Aviadispetche.exe
+C:\Users\it-71\Desktop\Aviadispetcher\Aviadispetche\bin\Debug\Aviadispetche.pdb
+C:\Users\it-71\Desktop\Aviadispetcher\Aviadispetche\obj\x86\Debug\MainWindow.baml
+C:\Users\it-71\Desktop\Aviadispetcher\Aviadispetche\obj\x86\Debug\MainWindow.g.cs
+C:\Users\it-71\Desktop\Aviadispetcher\Aviadispetche\obj\x86\Debug\App.g.cs
+C:\Users\it-71\Desktop\Aviadispetcher\Aviadispetche\obj\x86\Debug\Aviadispetche_MarkupCompile.cache
+C:\Users\it-71\Desktop\Aviadispetcher\Aviadispetche\obj\x86\Debug\Aviadispetche.g.resources
+C:\Users\it-71\Desktop\Aviadispetcher\Aviadispetche\obj\x86\Debug\Aviadispetche.Properties.Resources.resources
+C:\Users\it-71\Desktop\Aviadispetcher\Aviadispetche\obj\x86\Debug\Aviadispetcher.csproj.GenerateResource.Cache
+C:\Users\it-71\Desktop\Aviadispetcher\Aviadispetche\obj\x86\Debug\Aviadispetche.exe
+C:\Users\it-71\Desktop\Aviadispetcher\Aviadispetche\obj\x86\Debug\Aviadispetche.pdb
+S:\Токар А\Aviadispetcher\Aviadispetche\obj\x86\Debug\MainWindow.baml
+S:\Токар А\Aviadispetcher\Aviadispetche\obj\x86\Debug\MainWindow.g.cs
+S:\Токар А\Aviadispetcher\Aviadispetche\obj\x86\Debug\App.g.cs
+S:\Токар А\Aviadispetcher\Aviadispetche\obj\x86\Debug\Aviadispetcher.csproj.GenerateResource.Cache
+S:\Токар А\Aviadispetcher\Aviadispetche\obj\x86\Debug\Aviadispetcher.csprojResolveAssemblyReference.cache
+S:\Токар А\Aviadispetcher\Aviadispetche\obj\x86\Debug\Aviadispetcher.Properties.Resources.resources
+S:\Токар А\Aviadispetcher\Aviadispetche\obj\x86\Debug\Aviadispetcher_MarkupCompile.cache
+S:\Токар А\Aviadispetcher\Aviadispetche\obj\x86\Debug\Aviadispetcher.g.resources
+S:\Токар А\Aviadispetcher\Aviadispetche\bin\Debug\Aviadispetcher.exe
+S:\Токар А\Aviadispetcher\Aviadispetche\bin\Debug\Aviadispetcher.pdb
+S:\Токар А\Aviadispetcher\Aviadispetche\bin\Debug\MySql.Data.DLL
+S:\Токар А\Aviadispetcher\Aviadispetche\obj\x86\Debug\Aviadispetcher.exe
+S:\Токар А\Aviadispetcher\Aviadispetche\obj\x86\Debug\Aviadispetcher.pdb
+G:\2 Курс\2 Модуль\ТСПП\Aviadispetcher\Aviadispetche\obj\x86\Debug\Aviadispetcher.exe
+G:\2 Курс\2 Модуль\ТСПП\Aviadispetcher\Aviadispetche\obj\x86\Debug\Aviadispetcher.pdb
+C:\Users\stast\Desktop\Aviadispetcher\Aviadispetche\bin\Debug\Aviadispetcher.exe
+C:\Users\stast\Desktop\Aviadispetcher\Aviadispetche\bin\Debug\Aviadispetcher.pdb
+C:\Users\stast\Desktop\Aviadispetcher\Aviadispetche\bin\Debug\MySql.Data.DLL
+C:\Users\stast\Desktop\Aviadispetcher\Aviadispetche\obj\x86\Debug\Aviadispetcher.csprojAssemblyReference.cache
+C:\Users\stast\Desktop\Aviadispetcher\Aviadispetche\obj\x86\Debug\MainWindow.baml
+C:\Users\stast\Desktop\Aviadispetcher\Aviadispetche\obj\x86\Debug\MainWindow.g.cs
+C:\Users\stast\Desktop\Aviadispetcher\Aviadispetche\obj\x86\Debug\App.g.cs
+C:\Users\stast\Desktop\Aviadispetcher\Aviadispetche\obj\x86\Debug\Aviadispetcher_MarkupCompile.cache
+C:\Users\stast\Desktop\Aviadispetcher\Aviadispetche\obj\x86\Debug\Aviadispetcher.g.resources
+C:\Users\stast\Desktop\Aviadispetcher\Aviadispetche\obj\x86\Debug\Aviadispetcher.Properties.Resources.resources
+C:\Users\stast\Desktop\Aviadispetcher\Aviadispetche\obj\x86\Debug\Aviadispetcher.csproj.GenerateResource.cache
+C:\Users\stast\Desktop\Aviadispetcher\Aviadispetche\obj\x86\Debug\Aviadispetcher.csproj.CoreCompileInputs.cache
+C:\Users\stast\Desktop\Aviadispetcher\Aviadispetche\obj\x86\Debug\Aviadispetcher.csproj.CopyComplete
+C:\Users\stast\Desktop\Aviadispetcher\Aviadispetche\obj\x86\Debug\Aviadispetcher.exe
+C:\Users\stast\Desktop\Aviadispetcher\Aviadispetche\obj\x86\Debug\Aviadispetcher.pdb
