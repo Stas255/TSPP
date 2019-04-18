@@ -15,6 +15,7 @@ namespace Aviadispetcher
     {
         string connStr;
         public List<Flight> fList = new List<Flight>(85);
+        public Flight[] selectedCityList = new Flight[10];
         int flightNum;
         bool flightAdd = false;
 
@@ -253,6 +254,40 @@ namespace Aviadispetcher
             this.Width = numFlightGroupBox.Margin.Left + numFlightGroupBox.RenderSize.Width + groupBox1.Width + 30;
             cityList.Items.Clear();
             FillCityList();
+        }
+
+        private Flight[] SelectX(string cityX = "")
+        {
+            Flight[] selectedList = new Flight[10];
+            selectXList.Items.Clear();
+            cityX = Convert.ToString(cityList.Items[cityList.SelectedIndex]);
+            int j = 0;
+            for (int i = 0; i < fList.Count; i++) //???
+            {
+                if (cityX == fList[i].City)
+                {
+                    selectedList[j] = fList[i];
+                    j++;
+                }
+            }
+            return selectedList;
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            string selectedCity = "";
+            selectedCity = Convert.ToString(cityList.Items[cityList.SelectedIndex]);
+
+            selectedCityList = SelectX(selectedCity);
+
+            for (int i = 0; i < selectedCityList.Length; i++)
+            {
+                if (selectedCityList[i] != null)
+                {
+                    selectXList.Items.Add(selectedCityList[i].Number + " | "
+                                                                     + selectedCityList[i].Departure_time);
+                }
+            }
         }
     }
 }
