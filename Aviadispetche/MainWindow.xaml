@@ -12,7 +12,7 @@
         <Menu Height="23" HorizontalAlignment="Left" Margin="0,-3,0,0" Name="menu1" VerticalAlignment="Top" Width="146">
             <MenuItem Header="Файл">
                 <MenuItem Name ="LoadDataMenuItem" Header="Завантажити" Click="LoadDataMenuItem_Click"></MenuItem>
-                <MenuItem Name ="SaveDataMenuItem" Header="Зберегти" />
+                <MenuItem Name ="SaveDataMenuItem" Header="Зберегти" Click="SaveDataMenuItem_Click" />
             </MenuItem>
             <MenuItem Header="Рейси">
                 <MenuItem Name ="EditDataMenuItem" Header="Редагувати" Click="EditDataMenuItem_Click" />
@@ -74,6 +74,6 @@
                 <TextBox Name="sTime" HorizontalAlignment="Left" Height="23" Margin="10,10,0,0" TextWrapping="Wrap" Text="00:00" VerticalAlignment="Top" Width="120" MaxLength="5"/>
             </Grid>
         </GroupBox>
-        <Button Name="Button3" Content="Зберегти" HorizontalAlignment="Left" Margin="346,241,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button Name="Button3" Content="Зберегти" HorizontalAlignment="Left" Margin="346,241,0,0" VerticalAlignment="Top" Width="75" Click="Button3_Click"/>
     </Grid>
 </Window>

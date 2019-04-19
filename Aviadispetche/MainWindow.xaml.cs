@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Windows;
 using MySql.Data.MySqlClient;
-
+using System.IO;
 
 
 
@@ -13,6 +13,9 @@ namespace Aviadispetcher
     /// </summary>
     public partial class MainWindow : Window
     {
+        string filePath;//папка із виконуваним файлом програми
+        Microsoft.Office.Interop.Word.Application wordApp;
+        Microsoft.Office.Interop.Word.Document wordDoc;
         string connStr;
         public List<Flight> fList = new List<Flight>(85);
         public Flight[] selectedCityList = new Flight[10];
@@ -299,7 +302,7 @@ namespace Aviadispetcher
             if (selectXList.Items.Count > 0)
             {
                 groupBox2.Visibility = Visibility.Visible;
-
+                Button3.Visibility = Visibility.Visible;
                 this.Width = this.Width = numFlightGroupBox.Margin.Left + numFlightGroupBox.RenderSize.Width + groupBox1.Width +groupBox2.Width + 30;
             }
             else
@@ -356,6 +359,98 @@ namespace Aviadispetcher
                                            selectedCityTimeList[i].Free_seats + " місць");
                 }
             }
+        }
+
+        private void WriteData(Flight[] selXList, Flight[] selXYList)
+        {
+            filePath = Environment.CurrentDirectory.ToString();
+            try
+            {
+                wordApp = new Microsoft.Office.Interop.Word.Application();
+                wordDoc = wordApp.Documents.Add(filePath + "\\Шаблон_Пошуку_рейсів.dot");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message + char.ConvertFromUtf32(13)+
+                    "Недостатньо даних!" + char.ConvertFromUtf32(13) +
+                                "Помістіть файл Шаблон_Пошуку_рейсів.dot" + char.ConvertFromUtf32(13) +
+                                "у каталог із exe-файлом програми і повторіть збереження", "Помилка",
+                    MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+            string selectedCity = cityList.SelectedItem.ToString();
+
+            ReplaceText(selXList, 1);
+            ReplaceText(selectedCity, "[X]");
+
+            ReplaceText(selXList, 2);
+            ReplaceText(selectedCity, "[Y]");
+
+            
+            wordDoc.Save();
+            if (wordDoc != null)
+            {
+                wordDoc.Close();
+            }
+            if (wordApp != null)
+            {
+                wordApp.Quit();
+            }
+        }
+
+        private void ReplaceText(string textToReplace, string replacedText)
+        {
+            Object missing = Type.Missing;
+
+            Microsoft.Office.Interop.Word.Range selText;
+            selText = wordDoc.Range(wordDoc.Content.Start, wordDoc.Content.End);
+
+            Microsoft.Office.Interop.Word.Find find = wordApp.Selection.Find;
+            find.Text = replacedText;
+            find.Replacement.Text = textToReplace;
+            Object wrap = Microsoft.Office.Interop.Word.WdFindWrap.wdFindContinue;
+            Object replace = Microsoft.Office.Interop.Word.WdReplace.wdReplaceAll;
+
+            find.Execute(FindText: Type.Missing,
+                MatchCase: false,
+                MatchWholeWord: false,
+                MatchWildcards: false,
+                MatchSoundsLike: missing,
+                MatchAllWordForms: false,
+                Forward: true,
+                Wrap: wrap,
+                Format:false,
+                ReplaceWith: missing, Replace: replace);
+        }
+
+        private void ReplaceText(Flight[] selectedLixt, int numTable)
+        {
+            for (int i = 0; i < selectedLixt.Length; i++)
+            {
+                if (selectedLixt[i] != null)
+                {
+                    wordDoc.Tables[numTable].Rows.Add();
+                    wordDoc.Tables[numTable].Cell(2 + i, 1).Range.Text =
+                        selectedLixt[i].Number;
+                    wordDoc.Tables[numTable].Cell(2 + i, 2).Range.Text =
+                        selectedLixt[i].Departure_time.ToString();
+                    if (numTable == 2)
+                    {
+                        wordDoc.Tables[numTable].Cell(2 + i, 3).Range.Text =
+                            selectedLixt[i].Free_seats.ToString();
+                    }
+                }
+            }
+        }
+
+        private void Button3_Click(object sender, RoutedEventArgs e)
+        {
+            WriteData(selectedCityList,selectedCityTimeList);
+        }
+
+        private void SaveDataMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            Button3_Click(sender, e);
         }
     }
 }
