@@ -16,6 +16,8 @@ namespace Aviadispetcher
         string connStr;
         public List<Flight> fList = new List<Flight>(85);
         public Flight[] selectedCityList = new Flight[10];
+        public Flight[] selectedCityTimeList = new Flight[10];
+        DateTime timeFlight;
         int flightNum;
         bool flightAdd = false;
 
@@ -77,6 +79,8 @@ namespace Aviadispetcher
         {
             OpenDbFile();
             groupBox1.Visibility = Visibility.Hidden;
+            groupBox2.Visibility = Visibility.Hidden;
+            Button3.Visibility = Visibility.Hidden;
 
             this.Width = FlightListDG.Margin.Left + FlightListDG.RenderSize.Width + 50;
             this.Height = FlightListDG.Margin.Top + FlightListDG.RenderSize.Height + 50;
@@ -284,8 +288,72 @@ namespace Aviadispetcher
             {
                 if (selectedCityList[i] != null)
                 {
-                    selectXList.Items.Add(selectedCityList[i].Number + " | "
+                    selectXList.Items.Add(selectedCityList[i].Number + " "
                                                                      + selectedCityList[i].Departure_time);
+                }
+            }
+        }
+
+        private void SelectXYMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            if (selectXList.Items.Count > 0)
+            {
+                groupBox2.Visibility = Visibility.Visible;
+
+                this.Width = this.Width = numFlightGroupBox.Margin.Left + numFlightGroupBox.RenderSize.Width + groupBox1.Width +groupBox2.Width + 30;
+            }
+            else
+            {
+                MessageBox.Show("Недостатньо даних!" + char.ConvertFromUtf32(13) +
+                                             "Спочатку потрібно виконати команду"+ char.ConvertFromUtf32(13) + 
+                                             "Пошук-За містом призначення", "Увага",
+                    MessageBoxButton.OK, MessageBoxImage.Exclamation);
+            }
+        }
+
+        private Flight[] SelectXY(DateTime DeadLine)
+        {
+            Flight[] selectedList = new Flight[10];
+
+            DateTime[] fTime = new DateTime[selectXList.Items.Count];
+            int j = 0;
+            for (int i = 0; i < selectXList.Items.Count; i++)
+            {
+                string strList = selectXList.Items[i].ToString();
+                if ((strList) != " ")
+                {
+                    int charNum1;
+                    charNum1 = strList.IndexOf(" ");
+                    strList = strList.Substring(charNum1 + 1, strList.Length - charNum1 - 1);
+                    fTime[j] = DateTime.Parse(strList);
+                    j++;
+                }
+            }
+
+            j = 0;
+            for (int i = 0; i < selectXList.Items.Count; i++)
+            {
+                if (DeadLine.TimeOfDay > fTime[i].TimeOfDay)
+                {
+                    selectedList[j] = selectedCityList[i];
+                    j++;
+                }
+            }
+            return selectedList;
+        }
+
+        private void Button2_Click(object sender, RoutedEventArgs e)
+        {
+            timeFlight = Convert.ToDateTime(sTime.Text);
+
+            selectXList1.Items.Clear();
+            selectedCityTimeList = SelectXY(timeFlight);
+            for (int i = 0; i < selectedCityTimeList.Length; i++)
+            {
+                if (selectedCityTimeList[i] != null)
+                {
+                    selectXList1.Items.Add(selectedCityTimeList[i].Number + " вільно " +
+                                           selectedCityTimeList[i].Free_seats + " місць");
                 }
             }
         }
