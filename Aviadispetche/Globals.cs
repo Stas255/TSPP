@@ -1,7 +1,8 @@
 ﻿namespace Aviadispetcher
 {
     public class Flight
-    { 
+    {
+        public static int logUser { get; set; }
         public Flight(string nF, string cF, System.TimeSpan tF, int fS)
     {
         this.Number = nF;
