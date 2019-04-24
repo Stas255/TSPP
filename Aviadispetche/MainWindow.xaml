@@ -23,7 +23,7 @@
                 <MenuItem Name ="SelectXYMenuItem" Header="За часом вильоту" Click="SelectXYMenuItem_Click" />
             </MenuItem>
         </Menu>
-        <DataGrid x:Name="FlightListDG" MaxHeight="260" AutoGenerateColumns="False" MouseUp="FlightListDG_MouseUp" Margin="0,37,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="414">
+        <DataGrid x:Name="FlightListDG" MaxHeight="260" AutoGenerateColumns="False" MouseUp="FlightListDG_MouseUp" Margin="0,37,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="414" Height="265">
 
             <DataGrid.Columns >
 
