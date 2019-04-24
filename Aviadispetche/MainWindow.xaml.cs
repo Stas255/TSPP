@@ -18,8 +18,8 @@ namespace Aviadispetcher
         Microsoft.Office.Interop.Word.Document wordDoc;
         string connStr;
         public List<Flight> fList = new List<Flight>(85);
-        public Flight[] selectedCityList = new Flight[10];
-        public Flight[] selectedCityTimeList = new Flight[10];
+        public List<Flight> selectedCityList = new List<Flight>();
+        public List<Flight> selectedCityTimeList = new List<Flight>();
         DateTime timeFlight;
         int flightNum;
         bool flightAdd = false;
@@ -271,9 +271,9 @@ namespace Aviadispetcher
             FillCityList();
         }
 
-        private Flight[] SelectX(string cityX = "")
+        private List<Flight> SelectX(string cityX = "")
         {
-            Flight[] selectedList = new Flight[10];
+            List<Flight> selectedList = new List<Flight>();
             selectXList.Items.Clear();
             cityX = Convert.ToString(cityList.Items[cityList.SelectedIndex]);
             int j = 0;
@@ -281,7 +281,7 @@ namespace Aviadispetcher
             {
                 if (cityX == fList[i].City)
                 {
-                    selectedList[j] = fList[i];
+                    selectedList.Add(fList[i]);
                     j++;
                 }
             }
@@ -295,7 +295,7 @@ namespace Aviadispetcher
 
             selectedCityList = SelectX(selectedCity);
 
-            for (int i = 0; i < selectedCityList.Length; i++)
+            for (int i = 0; i < selectedCityList.Count; i++)
             {
                 if (selectedCityList[i] != null)
                 {
@@ -322,9 +322,9 @@ namespace Aviadispetcher
             }
         }
 
-        private Flight[] SelectXY(DateTime DeadLine)
+        private List<Flight> SelectXY(DateTime DeadLine)
         {
-            Flight[] selectedList = new Flight[10];
+            List<Flight> selectedList = new List<Flight>();
 
             DateTime[] fTime = new DateTime[selectXList.Items.Count];
             int j = 0;
@@ -346,7 +346,7 @@ namespace Aviadispetcher
             {
                 if (DeadLine.TimeOfDay > fTime[i].TimeOfDay)
                 {
-                    selectedList[j] = selectedCityList[i];
+                    selectedList.Add(selectedCityList[i]);
                     j++;
                 }
             }
@@ -359,7 +359,7 @@ namespace Aviadispetcher
 
             selectXList1.Items.Clear();
             selectedCityTimeList = SelectXY(timeFlight);
-            for (int i = 0; i < selectedCityTimeList.Length; i++)
+            for (int i = 0; i < selectedCityTimeList.Count; i++)
             {
                 if (selectedCityTimeList[i] != null)
                 {
@@ -369,7 +369,7 @@ namespace Aviadispetcher
             }
         }
 
-        private void WriteData(Flight[] selXList, Flight[] selXYList)
+        private void WriteData(List<Flight> selXList, List<Flight> selXYList)
         {
             filePath = Environment.CurrentDirectory.ToString();
             try
@@ -431,9 +431,9 @@ namespace Aviadispetcher
                 ReplaceWith: missing, Replace: replace);
         }
 
-        private void ReplaceText(Flight[] selectedLixt, int numTable)
+        private void ReplaceText(List<Flight> selectedLixt, int numTable)
         {
-            for (int i = 0; i < selectedLixt.Length; i++)
+            for (int i = 0; i < selectedLixt.Count; i++)
             {
                 if (selectedLixt[i] != null)
                 {
