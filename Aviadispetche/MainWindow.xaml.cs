@@ -76,6 +76,7 @@ namespace Aviadispetcher
                     "Помилка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             OpenDbFile();
+            this.Height = FlightListDG.Margin.Top + FlightListDG.RenderSize.Height + 50; 
         }
 
         private void InfoFlightForm_Loaded(object sender, RoutedEventArgs e)
