@@ -84,19 +84,15 @@ namespace Aviadispetcher
             if (Flight.logUser == 1)
             {
                 menu1.Items.Remove(menu1.Items[1]);
-                Button3.Visibility = Visibility.Hidden;
-                groupBox1.Visibility = Visibility.Hidden;
-                groupBox2.Visibility = Visibility.Hidden;
-                numFlightGroupBox.Visibility = Visibility.Hidden;
             }
             else if (Flight.logUser == 2)
             {
                 menu1.Items.Remove(menu1.Items[2]);
-                Button3.Visibility = Visibility.Hidden;
-                groupBox1.Visibility = Visibility.Hidden;
-                groupBox2.Visibility = Visibility.Hidden;
-                numFlightGroupBox.Visibility = Visibility.Hidden;
             }
+            Button3.Visibility = Visibility.Hidden;
+            groupBox1.Visibility = Visibility.Hidden;
+            groupBox2.Visibility = Visibility.Hidden;
+            numFlightGroupBox.Visibility = Visibility.Hidden;
 
             this.Width = FlightListDG.Margin.Left + FlightListDG.RenderSize.Width + 50;
             this.Height = FlightListDG.Margin.Top + FlightListDG.RenderSize.Height + 50;
@@ -108,8 +104,8 @@ namespace Aviadispetcher
             
             numFlightGroupBox.Visibility = Visibility.Visible;
             this.Height = FlightListDG.Margin.Top + FlightListDG.RenderSize.Height + 50 + 
-                           numFlightGroupBox.RenderSize.Height + 20;
-
+                           numFlightGroupBox.RenderSize.Height;
+            saveButton.Content = "Редагувати";
             flightAdd = false;
         }
 
@@ -236,9 +232,9 @@ namespace Aviadispetcher
             numFlightGroupBox.Visibility = Visibility.Visible;
 
             this.Height = FlightListDG.Margin.Top + FlightListDG.RenderSize.Height + 50 +
-                          numFlightGroupBox.RenderSize.Height + 20;
+                          numFlightGroupBox.RenderSize.Height;
             flightAdd = true;
-
+            saveButton.Content = "Додати";
             flightNum = fList.Count;
         }
 
@@ -270,7 +266,7 @@ namespace Aviadispetcher
         {
             groupBox1.Visibility = Visibility.Visible;
 
-            this.Width = numFlightGroupBox.Margin.Left + numFlightGroupBox.RenderSize.Width + groupBox1.Width + 30;
+            this.Width = numFlightGroupBox.Margin.Left + numFlightGroupBox.RenderSize.Width + groupBox1.Width + 40;
             cityList.Items.Clear();
             FillCityList();
         }
@@ -315,7 +311,7 @@ namespace Aviadispetcher
             {
                 groupBox2.Visibility = Visibility.Visible;
                 Button3.Visibility = Visibility.Visible;
-                this.Width = this.Width = numFlightGroupBox.Margin.Left + numFlightGroupBox.RenderSize.Width + groupBox1.Width +groupBox2.Width + 30;
+                this.Width = numFlightGroupBox.Margin.Left + numFlightGroupBox.RenderSize.Width + groupBox1.Width +groupBox2.Width + 40;
             }
             else
             {
