@@ -22,13 +22,14 @@ namespace Aviadispetcher
         public List<Flight> selectedCityTimeList = new List<Flight>();
         DateTime timeFlight;
         int flightNum;
+        private string freeSeats;//для запису в файл кількість вільних мість
         bool flightAdd = false;
 
         private void OpenDbFile()
         {
             try
             {
-                connStr = "Server = 127.0.0.1; Database = aviadispetcher; Uid = root; Pwd = ;";
+                connStr = "Server = 127.0.0.1; Database = aviadispetcherodz; Uid = root; Pwd = ;";
                 MySqlConnection conn = new MySqlConnection(connStr);
                 MySqlCommand command = new MySqlCommand();
                 string commandString = "SELECT * FROM rozklad;";
@@ -41,7 +42,8 @@ namespace Aviadispetcher
                 while (reader.Read())
                 {
                     fList.Add(new Flight((string)reader["number"], (string)reader["city"],
-                        (System.TimeSpan)reader["depature_time"], (int)reader["free_seats"]));
+                        (System.TimeSpan)reader["depature_time"], (System.TimeSpan)reader["arrival_time"], 
+                        (int)reader["free_seats"]));
                     i += 1;
                 }
                 reader.Close();
@@ -118,6 +120,7 @@ namespace Aviadispetcher
                 numFlightTextBox.Text = editerFlight.Number;
                 cityFlightTextBox.Text = editerFlight.City;
                 timeFlightTextBox.Text = editerFlight.Departure_time.ToString(@"hh\:mm");
+                timeArrivalFlightTextBox.Text = editerFlight.Arrival_time.ToString(@"hh\:mm");
                 freeSeatsTextBox.Text = editerFlight.Free_seats.ToString();
             }
             catch (Exception ex)
@@ -130,9 +133,10 @@ namespace Aviadispetcher
         private void ChangeFlightListData(int num)
         {
             TimeSpan depTime;
+            TimeSpan arrivTime;
             if (flightAdd)
             {
-                fList.Add(new Flight("","",TimeSpan.Zero, 0));
+                fList.Add(new Flight("","",TimeSpan.Zero, TimeSpan.Zero, 0));
             }
 
             fList[num].Number = numFlightTextBox.Text;
@@ -140,6 +144,10 @@ namespace Aviadispetcher
             if (TimeSpan.TryParse(timeFlightTextBox.Text, out depTime))
             {
                 fList[num].Departure_time = depTime;
+            }
+            if (TimeSpan.TryParse(timeArrivalFlightTextBox.Text, out arrivTime))
+            {
+                fList[num].Arrival_time = arrivTime;
             }
 
             fList[num].Free_seats = Convert.ToInt16(freeSeatsTextBox.Text);
@@ -153,12 +161,13 @@ namespace Aviadispetcher
                     using (MySqlConnection conn = new MySqlConnection(connStr))
                     using (MySqlCommand cmd =
                         new MySqlCommand(
-                            "INSERT INTO rozklad (Number, City, Depature_time, Free_seats) VALUES (?,?,?,?)",
+                            "INSERT INTO rozklad (Number, City, Depature_time,Arrival_time, Free_seats) VALUES (?,?,?,?,?)",
                             conn))
                     {
                         cmd.Parameters.Add("@number", MySqlDbType.VarChar, 6).Value = numFlightTextBox.Text;
                         cmd.Parameters.Add("@city", MySqlDbType.VarChar, 25).Value = cityFlightTextBox.Text;
                         cmd.Parameters.Add("@depature_time", MySqlDbType.Time).Value = depTime;
+                        cmd.Parameters.Add("@arrival_time", MySqlDbType.Time).Value = arrivTime;
                         cmd.Parameters.Add("@free_seats", MySqlDbType.Int16, 4).Value =
                             Convert.ToInt16(freeSeatsTextBox.Text);
                         cmd.Parameters.Add("@id", MySqlDbType.Int16, 11).Value = num + 1;
@@ -190,12 +199,13 @@ namespace Aviadispetcher
                     using (MySqlConnection conn = new MySqlConnection(connStr))
                     using (MySqlCommand cmd =
                         new MySqlCommand(
-                            "UPDATE rozklad SET number = ?, city = ?, depature_time = ?, free_seats = ? WHERE id = ?",
+                            "UPDATE rozklad SET number = ?, city = ?, depature_time = ?,arrival_time = ?, free_seats = ? WHERE id = ?",
                             conn))
                     {
                         cmd.Parameters.Add("@number", MySqlDbType.VarChar, 6).Value = numFlightTextBox.Text;
                         cmd.Parameters.Add("@city", MySqlDbType.VarChar, 25).Value = cityFlightTextBox.Text;
                         cmd.Parameters.Add("@depature_time", MySqlDbType.Time).Value = depTime;
+                        cmd.Parameters.Add("@arrival_time", MySqlDbType.Time).Value = arrivTime;
                         cmd.Parameters.Add("@free_seats", MySqlDbType.Int16, 4).Value =
                             Convert.ToInt16(freeSeatsTextBox.Text);
                         cmd.Parameters.Add("@id", MySqlDbType.Int16, 11).Value = num + 1;
@@ -299,8 +309,7 @@ namespace Aviadispetcher
             {
                 if (selectedCityList[i] != null)
                 {
-                    selectXList.Items.Add(selectedCityList[i].Number + " "
-                                                                     + selectedCityList[i].Departure_time);
+                    selectXList.Items.Add(selectedCityList[i].Departure_time);
                 }
             }
         }
@@ -344,7 +353,7 @@ namespace Aviadispetcher
             j = 0;
             for (int i = 0; i < selectXList.Items.Count; i++)
             {
-                if (DeadLine.TimeOfDay > fTime[i].TimeOfDay)
+                if (DeadLine.TimeOfDay == fTime[i].TimeOfDay)
                 {
                     selectedList.Add(selectedCityList[i]);
                     j++;
@@ -363,8 +372,8 @@ namespace Aviadispetcher
             {
                 if (selectedCityTimeList[i] != null)
                 {
-                    selectXList1.Items.Add(selectedCityTimeList[i].Number + " вільно " +
-                                           selectedCityTimeList[i].Free_seats + " місць");
+                    selectXList1.Items.Add("вільно " + selectedCityTimeList[i].Free_seats + " місць");
+                    freeSeats = selectedCityTimeList[i].Free_seats.ToString();
                 }
             }
         }
@@ -375,7 +384,7 @@ namespace Aviadispetcher
             try
             {
                 wordApp = new Microsoft.Office.Interop.Word.Application();
-                wordDoc = wordApp.Documents.Add(filePath + "\\Шаблон_Пошуку_рейсів.dot");
+                wordDoc = wordApp.Documents.Add(filePath + "\\Шаблон_Пошуку_рейсів.dotx");
             }
             catch (Exception ex)
             {
@@ -387,14 +396,13 @@ namespace Aviadispetcher
             }
 
             string selectedCity = cityList.SelectedItem.ToString();
-
+            string timeDeparture = sTime.Text; ;
             ReplaceText(selXList, 1);
             ReplaceText(selectedCity, "[X]");
+            ReplaceText(timeDeparture, "[Y]");
+            ReplaceText(freeSeats, "[Z]");
 
-            ReplaceText(selXList, 2);
-            ReplaceText(selectedCity, "[Y]");
 
-            
             wordDoc.Save();
             if (wordDoc != null)
             {
