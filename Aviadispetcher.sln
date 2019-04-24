@@ -1,7 +1,11 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2046
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aviadispetcher", "Aviadispetche\Aviadispetcher.csproj", "{D1161E93-DA48-4AB9-9E6F-CC0009B91DFD}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "TSPPVAR5", "TSPPVAR5\TSPPVAR5.vdproj", "{C1C7C536-C09F-482C-87BE-8DBE7E734069}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,8 +17,13 @@ Global
 		{D1161E93-DA48-4AB9-9E6F-CC0009B91DFD}.Debug|x86.Build.0 = Debug|x86
 		{D1161E93-DA48-4AB9-9E6F-CC0009B91DFD}.Release|x86.ActiveCfg = Release|x86
 		{D1161E93-DA48-4AB9-9E6F-CC0009B91DFD}.Release|x86.Build.0 = Release|x86
+		{C1C7C536-C09F-482C-87BE-8DBE7E734069}.Debug|x86.ActiveCfg = Debug
+		{C1C7C536-C09F-482C-87BE-8DBE7E734069}.Release|x86.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2E5108BC-EA82-41E1-96CA-0AF2E2CB4C57}
 	EndGlobalSection
 EndGlobal
