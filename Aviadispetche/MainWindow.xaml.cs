@@ -36,7 +36,7 @@ namespace Aviadispetcher
                 command.CommandText = commandString;
                 command.Connection = conn;
                 MySqlDataReader reader;
-                command.Connection.Open(); //тут проблема
+                command.Connection.Open();
                 reader = command.ExecuteReader();
                 int i = 0;
                 while (reader.Read())
@@ -253,7 +253,7 @@ namespace Aviadispetcher
             bool nameExist = false;
             cityList.Items.Add(fList[0].City);
 
-            for (int i = 1; i < fList.Count; i++) //ошибка
+            for (int i = 1; i < fList.Count; i++)
             {
                 for (int j = 0; j < cityList.Items.Count; j++)
                 {
@@ -287,7 +287,7 @@ namespace Aviadispetcher
             selectXList.Items.Clear();
             cityX = Convert.ToString(cityList.Items[cityList.SelectedIndex]);
             int j = 0;
-            for (int i = 0; i < fList.Count; i++) //???
+            for (int i = 0; i < fList.Count; i++)
             {
                 if (cityX == fList[i].City)
                 {

@@ -50,9 +50,11 @@ namespace Aviadispetcher
                 (Flight.logUser == 2))
             {
                 MainWindow mainWindow = new MainWindow();
+                this.Close();
                 mainWindow.Show();
             }
-            this.Close();
+            logTextBox.Text = String.Empty;
+            passwordTextBox.Text = String.Empty;
         }
 
       
