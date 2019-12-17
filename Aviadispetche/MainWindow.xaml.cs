@@ -83,15 +83,14 @@ namespace Aviadispetcher
         private void InfoFlightForm_Loaded(object sender, RoutedEventArgs e)
         {
             OpenDbFile();
-            //if (Flight.logUser == 1)
-            //{
-            //    menu1.Items.Remove(menu1.Items[1]);
-            //}
-            //else if (Flight.logUser == 2)
-            //{
-            //    menu1.Items.Remove(menu1.Items[2]);
-            //}
-            menu1.Items.Remove(menu1.Items[2]);
+            if (Flight.logUser == 1)
+            {
+                menu1.Items.Remove(menu1.Items[1]);
+            }
+            else if (Flight.logUser == 2)
+            {
+                menu1.Items.Remove(menu1.Items[2]);
+            }
             Button3.Visibility = Visibility.Hidden;
             groupBox1.Visibility = Visibility.Hidden;
             groupBox2.Visibility = Visibility.Hidden;
