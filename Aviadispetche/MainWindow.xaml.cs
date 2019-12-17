@@ -22,7 +22,7 @@ namespace Aviadispetcher
         public List<Flight> selectedCityTimeList = new List<Flight>();
         DateTime timeFlight;
         int flightNum;
-        private string freeSeats;//для запису в файл кількість вільних мість
+        private string freeSeats;//для запису в файл кількість вільних місць
         bool flightAdd = false;
 
         private void OpenDbFile()
@@ -83,14 +83,15 @@ namespace Aviadispetcher
         private void InfoFlightForm_Loaded(object sender, RoutedEventArgs e)
         {
             OpenDbFile();
-            if (Flight.logUser == 1)
-            {
-                menu1.Items.Remove(menu1.Items[1]);
-            }
-            else if (Flight.logUser == 2)
-            {
-                menu1.Items.Remove(menu1.Items[2]);
-            }
+            //if (Flight.logUser == 1)
+            //{
+            //    menu1.Items.Remove(menu1.Items[1]);
+            //}
+            //else if (Flight.logUser == 2)
+            //{
+            //    menu1.Items.Remove(menu1.Items[2]);
+            //}
+            menu1.Items.Remove(menu1.Items[2]);
             Button3.Visibility = Visibility.Hidden;
             groupBox1.Visibility = Visibility.Hidden;
             groupBox2.Visibility = Visibility.Hidden;
@@ -134,103 +135,119 @@ namespace Aviadispetcher
         {
             TimeSpan depTime;
             TimeSpan arrivTime;
-            if (flightAdd)
+            try
             {
-                fList.Add(new Flight("","",TimeSpan.Zero, TimeSpan.Zero, 0));
-            }
-
-            fList[num].Number = numFlightTextBox.Text;
-            fList[num].City = cityFlightTextBox.Text;
-            if (TimeSpan.TryParse(timeFlightTextBox.Text, out depTime))
-            {
-                fList[num].Departure_time = depTime;
-            }
-            if (TimeSpan.TryParse(timeArrivalFlightTextBox.Text, out arrivTime))
-            {
-                fList[num].Arrival_time = arrivTime;
-            }
-
-            fList[num].Free_seats = Convert.ToInt16(freeSeatsTextBox.Text);
-
-            FlightListDG.ItemsSource = null;
-            FlightListDG.ItemsSource = fList;
-            if (flightAdd)
-            {
-                try
+                Action check = () =>
                 {
-                    using (MySqlConnection conn = new MySqlConnection(connStr))
-                    using (MySqlCommand cmd =
-                        new MySqlCommand(
-                            "INSERT INTO rozklad (Number, City, Depature_time,Arrival_time, Free_seats) VALUES (?,?,?,?,?)",
-                            conn))
+                    SelectXY(Convert.ToDateTime(timeFlightTextBox.Text));
+                    SelectXY(Convert.ToDateTime(timeArrivalFlightTextBox.Text));
+                    Convert.ToInt16(freeSeatsTextBox.Text);
+                };
+                check();
+                if (flightAdd)
+                {
+                    fList.Add(new Flight("", "", TimeSpan.Zero, TimeSpan.Zero, 0));
+                }
+
+                fList[num].Number = numFlightTextBox.Text;
+                fList[num].City = cityFlightTextBox.Text;
+                if (TimeSpan.TryParse(timeFlightTextBox.Text, out depTime))
+                {
+                    fList[num].Departure_time = depTime;
+                }
+                if (TimeSpan.TryParse(timeArrivalFlightTextBox.Text, out arrivTime))
+                {
+                    fList[num].Arrival_time = arrivTime;
+                }
+
+                fList[num].Free_seats = Convert.ToInt16(freeSeatsTextBox.Text);
+
+                FlightListDG.ItemsSource = null;
+                FlightListDG.ItemsSource = fList;
+                if (flightAdd)
+                {
+                    try
                     {
-                        cmd.Parameters.Add("@number", MySqlDbType.VarChar, 6).Value = numFlightTextBox.Text;
-                        cmd.Parameters.Add("@city", MySqlDbType.VarChar, 25).Value = cityFlightTextBox.Text;
-                        cmd.Parameters.Add("@depature_time", MySqlDbType.Time).Value = depTime;
-                        cmd.Parameters.Add("@arrival_time", MySqlDbType.Time).Value = arrivTime;
-                        cmd.Parameters.Add("@free_seats", MySqlDbType.Int16, 4).Value =
-                            Convert.ToInt16(freeSeatsTextBox.Text);
-                        cmd.Parameters.Add("@id", MySqlDbType.Int16, 11).Value = num + 1;
-                        conn.Open();
-                        cmd.ExecuteNonQuery();
+                        using (MySqlConnection conn = new MySqlConnection(connStr))
+                        using (MySqlCommand cmd =
+                            new MySqlCommand(
+                                "INSERT INTO rozklad (Number, City, Depature_time,Arrival_time, Free_seats) VALUES (?,?,?,?,?)",
+                                conn))
+                        {
+                            cmd.Parameters.Add("@number", MySqlDbType.VarChar, 6).Value = numFlightTextBox.Text;
+                            cmd.Parameters.Add("@city", MySqlDbType.VarChar, 25).Value = cityFlightTextBox.Text;
+                            cmd.Parameters.Add("@depature_time", MySqlDbType.Time).Value = depTime;
+                            cmd.Parameters.Add("@arrival_time", MySqlDbType.Time).Value = arrivTime;
+                            cmd.Parameters.Add("@free_seats", MySqlDbType.Int16, 4).Value =
+                                Convert.ToInt16(freeSeatsTextBox.Text);
+                            cmd.Parameters.Add("@id", MySqlDbType.Int16, 11).Value = num + 1;
+                            conn.Open();
+                            cmd.ExecuteNonQuery();
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        string errMsg = "";
+                        if (ex.Message == "Unable to connect to any of the specified MySQL hosts.")
+                        {
+                            errMsg = "Підключення веб-сервер MySQL та завантажте дані командою Файл-Завантажити";
+                        }
+                        else
+                        {
+                            errMsg = "Для завантаження даних виконайте команду Файл-Завантаджити";
+                        }
+
+                        MessageBox.Show(ex.Message + char.ConvertFromUtf32(13) + char.ConvertFromUtf32(13) + errMsg,
+                            "Помика",
+                            MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                 }
-                catch (Exception ex)
+                else
                 {
-                    string errMsg = "";
-                    if (ex.Message == "Unable to connect to any of the specified MySQL hosts.")
+                    try
                     {
-                        errMsg = "Підключення веб-сервер MySQL та завантажте дані командою Файл-Завантажити";
+                        using (MySqlConnection conn = new MySqlConnection(connStr))
+                        using (MySqlCommand cmd =
+                            new MySqlCommand(
+                                "UPDATE rozklad SET number = ?, city = ?, depature_time = ?,arrival_time = ?, free_seats = ? WHERE id = ?",
+                                conn))
+                        {
+                            cmd.Parameters.Add("@number", MySqlDbType.VarChar, 6).Value = numFlightTextBox.Text;
+                            cmd.Parameters.Add("@city", MySqlDbType.VarChar, 25).Value = cityFlightTextBox.Text;
+                            cmd.Parameters.Add("@depature_time", MySqlDbType.Time).Value = depTime;
+                            cmd.Parameters.Add("@arrival_time", MySqlDbType.Time).Value = arrivTime;
+                            cmd.Parameters.Add("@free_seats", MySqlDbType.Int16, 4).Value =
+                                Convert.ToInt16(freeSeatsTextBox.Text);
+                            cmd.Parameters.Add("@id", MySqlDbType.Int16, 11).Value = num + 1;
+                            conn.Open();
+                            cmd.ExecuteNonQuery();
+                        }
                     }
-                    else
+                    catch (Exception ex)
                     {
-                        errMsg = "Для завантаження даних виконайте команду Файл-Завантаджити";
-                    }
+                        string errMsg = "";
+                        if (ex.Message == "Unable to connect to any of the specified MySQL hosts.")
+                        {
+                            errMsg = "Підключення веб-сервер MySQL та завантажте дані командою Файл-Завантажити";
+                        }
+                        else
+                        {
+                            errMsg = "Для завантаження даних виконайте команду Файл-Завантаджити";
+                        }
 
-                    MessageBox.Show(ex.Message + char.ConvertFromUtf32(13) + char.ConvertFromUtf32(13) + errMsg,
-                        "Помика",
-                        MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show(ex.Message + char.ConvertFromUtf32(13) + char.ConvertFromUtf32(13) + errMsg,
+                            "Помика",
+                            MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
                 }
             }
-            else
+            catch (Exception ex)
             {
-                try
-                {
-                    using (MySqlConnection conn = new MySqlConnection(connStr))
-                    using (MySqlCommand cmd =
-                        new MySqlCommand(
-                            "UPDATE rozklad SET number = ?, city = ?, depature_time = ?,arrival_time = ?, free_seats = ? WHERE id = ?",
-                            conn))
-                    {
-                        cmd.Parameters.Add("@number", MySqlDbType.VarChar, 6).Value = numFlightTextBox.Text;
-                        cmd.Parameters.Add("@city", MySqlDbType.VarChar, 25).Value = cityFlightTextBox.Text;
-                        cmd.Parameters.Add("@depature_time", MySqlDbType.Time).Value = depTime;
-                        cmd.Parameters.Add("@arrival_time", MySqlDbType.Time).Value = arrivTime;
-                        cmd.Parameters.Add("@free_seats", MySqlDbType.Int16, 4).Value =
-                            Convert.ToInt16(freeSeatsTextBox.Text);
-                        cmd.Parameters.Add("@id", MySqlDbType.Int16, 11).Value = num + 1;
-                        conn.Open();
-                        cmd.ExecuteNonQuery();
-                    }
-                }
-                catch (Exception ex)
-                {
-                    string errMsg = "";
-                    if (ex.Message == "Unable to connect to any of the specified MySQL hosts.")
-                    {
-                        errMsg = "Підключення веб-сервер MySQL та завантажте дані командою Файл-Завантажити";
-                    }
-                    else
-                    {
-                        errMsg = "Для завантаження даних виконайте команду Файл-Завантаджити";
-                    }
-
-                    MessageBox.Show(ex.Message + char.ConvertFromUtf32(13) + char.ConvertFromUtf32(13) + errMsg,
-                        "Помика",
-                        MessageBoxButton.OK, MessageBoxImage.Error);
-                }
+                MessageBox.Show("Невірно введені дані!" + char.ConvertFromUtf32(13) +
+                                            "Повторіть спробу", "Увага",
+                   MessageBoxButton.OK, MessageBoxImage.Exclamation);
             }
- 
+
         }
         private void saveButton_Click(object sender, RoutedEventArgs e)
         {
@@ -307,17 +324,26 @@ namespace Aviadispetcher
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            string selectedCity = "";
-            selectedCity = Convert.ToString(cityList.Items[cityList.SelectedIndex]);
-
-            selectedCityList = SelectX(selectedCity);
-
-            for (int i = 0; i < selectedCityList.Count; i++)
+            try
             {
-                if (selectedCityList[i] != null)
+                string selectedCity = "";
+                selectedCity = Convert.ToString(cityList.Items[cityList.SelectedIndex]);
+
+                selectedCityList = SelectX(selectedCity);
+
+                for (int i = 0; i < selectedCityList.Count; i++)
                 {
-                    selectXList.Items.Add(selectedCityList[i].Departure_time);
+                    if (selectedCityList[i] != null)
+                    {
+                        selectXList.Items.Add(selectedCityList[i].Departure_time);
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Невірно обрані дані!" + char.ConvertFromUtf32(13) +
+                                            "Повторіть спробу", "Увага",
+                   MessageBoxButton.OK, MessageBoxImage.Exclamation);
             }
         }
 
@@ -327,7 +353,7 @@ namespace Aviadispetcher
             {
                 groupBox2.Visibility = Visibility.Visible;
                 Button3.Visibility = Visibility.Visible;
-                this.Width = numFlightGroupBox.Margin.Left + numFlightGroupBox.RenderSize.Width + groupBox1.Width +groupBox2.Width + 35;
+                this.Width = numFlightGroupBox.Margin.Left + numFlightGroupBox.RenderSize.Width + groupBox1.Width + groupBox2.Width + 35;
             }
             else
             {
@@ -371,17 +397,26 @@ namespace Aviadispetcher
 
         private void Button2_Click(object sender, RoutedEventArgs e)
         {
-            timeFlight = Convert.ToDateTime(sTime.Text);
-
-            selectXList1.Items.Clear();
-            selectedCityTimeList = SelectXY(timeFlight);
-            for (int i = 0; i < selectedCityTimeList.Count; i++)
+            try
             {
-                if (selectedCityTimeList[i] != null)
+                timeFlight = Convert.ToDateTime(sTime.Text);
+
+                selectXList1.Items.Clear();
+                selectedCityTimeList = SelectXY(timeFlight);
+                for (int i = 0; i < selectedCityTimeList.Count; i++)
                 {
-                    selectXList1.Items.Add("вільно " + selectedCityTimeList[i].Free_seats + " місць");
-                    freeSeats = selectedCityTimeList[i].Free_seats.ToString();
+                    if (selectedCityTimeList[i] != null)
+                    {
+                        selectXList1.Items.Add("вільно " + selectedCityTimeList[i].Free_seats + " місць");
+                        freeSeats = selectedCityTimeList[i].Free_seats.ToString();
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Неввірно введені дані!" + char.ConvertFromUtf32(13) +
+                                            "Повторіть спробу", "Увага",
+                   MessageBoxButton.OK, MessageBoxImage.Exclamation);
             }
         }
 
