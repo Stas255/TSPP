@@ -25,13 +25,13 @@ namespace Aviadispetcher
 
         private int LogCheck()
         {
-            int logUser = 0;
+            int logUser = 2;
             if ((logTextBox.Text == "Користувач") &&
                 (passwordTextBox.Text == "111"))
             {
                 logUser = 1;
             }
-            else if((logTextBox.Text == "Редактор") &&
+            else if ((logTextBox.Text == "Редактор") &&
                     (passwordTextBox.Text == "222"))
             {
                 logUser = 2;
@@ -45,7 +45,8 @@ namespace Aviadispetcher
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            Flight.logUser = LogCheck();
+            //Flight.logUser = LogCheck();
+            Flight.logUser = 1;
             if ((Flight.logUser == 1) ||
                 (Flight.logUser == 2))
             {

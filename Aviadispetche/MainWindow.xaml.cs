@@ -275,8 +275,15 @@ namespace Aviadispetcher
         private void SelectXMenuItem_Click(object sender, RoutedEventArgs e)
         {
             groupBox1.Visibility = Visibility.Visible;
-
-            this.Width = numFlightGroupBox.Margin.Left + numFlightGroupBox.RenderSize.Width + groupBox1.Width + 40;
+            if (groupBox2.Visibility == Visibility.Visible)
+            {
+                Button3.Visibility = Visibility.Hidden;
+                selectXList1.Items.Clear();
+                selectXList.Items.Clear();
+                sTime.Text = string.Empty;
+            }
+            groupBox2.Visibility = Visibility.Hidden;
+            this.Width = numFlightGroupBox.Margin.Left + numFlightGroupBox.RenderSize.Width + groupBox1.Width + 30;
             cityList.Items.Clear();
             FillCityList();
         }
@@ -320,7 +327,7 @@ namespace Aviadispetcher
             {
                 groupBox2.Visibility = Visibility.Visible;
                 Button3.Visibility = Visibility.Visible;
-                this.Width = numFlightGroupBox.Margin.Left + numFlightGroupBox.RenderSize.Width + groupBox1.Width +groupBox2.Width + 40;
+                this.Width = numFlightGroupBox.Margin.Left + numFlightGroupBox.RenderSize.Width + groupBox1.Width +groupBox2.Width + 35;
             }
             else
             {
