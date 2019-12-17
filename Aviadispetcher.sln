@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28010.2046
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29609.76
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aviadispetcher", "Aviadispetche\Aviadispetcher.csproj", "{D1161E93-DA48-4AB9-9E6F-CC0009B91DFD}"
 EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "TSPPVAR5", "TSPPVAR5\TSPPVAR5.vdproj", "{C1C7C536-C09F-482C-87BE-8DBE7E734069}"
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup", "Setup\Setup.vdproj", "{839953BF-47EB-4FDD-9698-BD05FB232BBE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,8 +17,8 @@ Global
 		{D1161E93-DA48-4AB9-9E6F-CC0009B91DFD}.Debug|x86.Build.0 = Debug|x86
 		{D1161E93-DA48-4AB9-9E6F-CC0009B91DFD}.Release|x86.ActiveCfg = Release|x86
 		{D1161E93-DA48-4AB9-9E6F-CC0009B91DFD}.Release|x86.Build.0 = Release|x86
-		{C1C7C536-C09F-482C-87BE-8DBE7E734069}.Debug|x86.ActiveCfg = Debug
-		{C1C7C536-C09F-482C-87BE-8DBE7E734069}.Release|x86.ActiveCfg = Release
+		{839953BF-47EB-4FDD-9698-BD05FB232BBE}.Debug|x86.ActiveCfg = Debug
+		{839953BF-47EB-4FDD-9698-BD05FB232BBE}.Release|x86.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

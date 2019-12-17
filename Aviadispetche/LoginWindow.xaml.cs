@@ -25,7 +25,7 @@ namespace Aviadispetcher
 
         private int LogCheck()
         {
-            int logUser = 2;
+            int logUser = 0;
             if ((logTextBox.Text == "Користувач") &&
                 (passwordTextBox.Text == "111"))
             {
