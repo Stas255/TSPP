@@ -45,8 +45,7 @@ namespace Aviadispetcher
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            //Flight.logUser = LogCheck();
-            Flight.logUser = 1;
+            Flight.logUser = LogCheck();
             if ((Flight.logUser == 1) ||
                 (Flight.logUser == 2))
             {
