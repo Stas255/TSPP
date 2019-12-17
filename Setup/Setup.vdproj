@@ -214,7 +214,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Setup"
         "ProductCode" = "8:{D702E82A-3DF4-4235-8CFA-DFC7FF51CB79}"
-        "PackageCode" = "8:{2778A625-DBB7-4C73-A7F4-23A7892F9E95}"
+        "PackageCode" = "8:{71F0C9D8-A5F8-465F-B89E-F587CF930E08}"
         "UpgradeCode" = "8:{FFE8BB09-DE5C-461C-91B1-67FAF566497A}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -336,7 +336,7 @@
         {
             "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_95A5E4A2CCC647B88D4792B93E985388"
             {
-            "Name" = "8:Avia"
+            "Name" = "8:AIR FLIGHTS"
             "Arguments" = "8:"
             "Description" = "8:"
             "ShowCmd" = "3:1"
@@ -364,7 +364,7 @@
             }
             "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_CF8AEF7F861849ED8069C09CCC236F82"
             {
-            "Name" = "8:Avia"
+            "Name" = "8:AIR FLIGHTS"
             "Arguments" = "8:"
             "Description" = "8:"
             "ShowCmd" = "3:1"
